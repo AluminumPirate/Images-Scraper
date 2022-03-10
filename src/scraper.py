@@ -2,6 +2,7 @@
 import os
 from random import randint
 from time import perf_counter
+import pathlib
 
 # Scraping Imports
 import requests
@@ -67,7 +68,7 @@ def scrape_url(download_url, folder):
 
             for link in links:
                 if 'http://' in link or 'https://' in link:
-                    filename = folder + '_' + str(downloaded) + '_fl.jpg'
+                    filename = folder.replace('_fl', '') + '_' + str(downloaded) + '_fl.jpg'
                     if save_image(folder, downloaded, link):
                         print(f'Written {downloaded}: {filename}')
                         downloaded += 1
@@ -90,8 +91,9 @@ def download_images_to_directory(urls):
     total_downloads = 0
 
     try:
-        if not os.path.exists(IMAGES_DIR):
-            os.mkdir(IMAGES_DIR)
+        pathlib.Path(IMAGES_DIR).mkdir(parents=True, exist_ok=True)
+        # if not os.path.exists(IMAGES_DIR):
+        #     os.mkdir(IMAGES_DIR)
 
         os.chdir(os.path.join(os.getcwd(), IMAGES_DIR))
     except Exception as ex:
