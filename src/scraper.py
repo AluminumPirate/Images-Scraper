@@ -14,6 +14,8 @@ from src.utils import get_random_string
 
 from src.config import *
 
+from PIL import Image
+
 
 def save_image(folder, downloaded, link):
     filename = folder.replace(FAIL_EXT, '') + '_' + str(downloaded) + '_fl.jpg'
@@ -21,6 +23,15 @@ def save_image(folder, downloaded, link):
         with open(filename, 'wb') as f:
             im = requests.get(link)
             f.write(im.content)
+
+            img = Image.open('./' + filename)
+            img.verify()
+
+            # f.write(im.content)
+    except (IOError, SyntaxError) as e:
+        print('Bad file:', filename)
+        os.remove(filename)
+        return False
     except Exception as ex:
         print(f'{ex}')
         return False
