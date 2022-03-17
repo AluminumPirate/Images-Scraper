@@ -3,6 +3,7 @@ import os
 from random import randint
 from time import perf_counter
 import pathlib
+import threading
 
 # Scraping Imports
 import requests
@@ -81,6 +82,12 @@ def scrape_url(download_url, folder):
     os.chdir(os.path.join(os.getcwd(), '..'))
 
     return downloaded
+
+
+# Enable multithreading
+# def download_images_to_directory(urls):
+#     for url in urls:
+#         threading.Thread(target=download_image_to_directory, args=(url, )).start()
 
 
 def download_images_to_directory(urls):
