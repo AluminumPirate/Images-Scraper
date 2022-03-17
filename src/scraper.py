@@ -121,6 +121,19 @@ def download_images_to_directory(urls):
             f.write(f'Script downloaded {downloads_counter} images in {end_time - start_time} seconds\n\n')
         print(f'Script downloaded {downloads_counter} images in {end_time - start_time} seconds')
 
+    deleted_files = False
+    try:
+        for entry in os.scandir('.'):
+            if os.path.isdir(entry.path) and not os.listdir(entry.path):
+                os.rmdir(entry.path)
+                deleted_files = True
+    except Exception as ex:
+        print(ex)
+
+    if deleted_files:
+        with open(LOG_FILE_NAME, 'a') as f:
+            f.write(f'Deleted empty folders')
+
     total_end_time = perf_counter()
 
     return total_downloads, (total_end_time - total_start_time)
