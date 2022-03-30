@@ -5,6 +5,8 @@ from time import perf_counter
 import pathlib
 import threading
 
+import time
+
 # Scraping Imports
 import requests
 from bs4 import BeautifulSoup
@@ -68,6 +70,7 @@ def scrape_url(download_url, folder):
 
     downloaded = 0
     try:
+        # time.sleep(2)
         r = requests.get(download_url, headers=HEADERS)
         soup = BeautifulSoup(r.text, 'html.parser')
         images = soup.find_all('img')
