@@ -1,5 +1,6 @@
 .git
 .idea
 *.pyc
+*.bat
 images/
 src/__pycache__/
